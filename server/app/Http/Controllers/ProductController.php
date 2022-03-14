@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // get all products
         //
+        return Product::all();
     }
 
     /**
@@ -34,9 +37,23 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        //
+        // validate request data
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required',
+            'category' => 'required|string',
+            'brand' => 'required|string',
+            'shipping' => 'boolean',
+            'sku' => 'string',
+            'colors' => 'string'
+        ]);
+        // store the data in the products table
+        // get the request images
+        // loop through the images
+        // store the images in the images table
     }
 
     /**
