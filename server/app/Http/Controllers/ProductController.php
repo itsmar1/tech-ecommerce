@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -18,18 +20,15 @@ class ProductController extends Controller
     {
         // get all products
         //
-        return Product::all();
+        $products = DB::table('products')
+                    ->join('images', 'products.id', '=', 'images.product_id')
+                    ->select('products.*', 'images.image')
+                    ->get();
+
+        return $products;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -46,37 +45,61 @@ class ProductController extends Controller
             'price' => 'required',
             'category' => 'required|string',
             'brand' => 'required|string',
-            'shipping' => 'boolean',
+            'shipping' => 'required|boolean',
             'sku' => 'string',
             'colors' => 'string'
         ]);
+
         // store the data in the products table
+        $product = Product::create($fields);
+
         // get the request images
-        // loop through the images
-        // store the images in the images table
+        if ($request->has('images')) {
+            // loop through the images
+            foreach($request->file('images') as $image) {
+
+                $imageName= $product->id.'_'.$fields['name'].'_image_'.time().rand(1,1000).'.'.$image->extension();
+
+                // store the images in s3
+                $path = $image->storeAs('products/'.$product->id, $imageName, 's3');
+
+                // store the images in the images table
+                Image::create([
+                    'product_id' => $product->id,
+                    'image' => $path
+                ]);
+            }
+        }
+
+        $response = [
+            'message' => 'Product created'
+        ];
+
+        return response($response, 201);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
+
+    // GET a Single Product Function
+    public function getProduct($id) {
+        $product = Product::find($id);
+        if (!$product){
+            return response([
+                'message' => 'No Product with the ID: '.$id
+            ], 401);
+        }
+        $images = $product->images;
+
+        $response = [
+            'product' => $product,
+            'images' => $images
+        ];
+
+        return response($response, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -85,9 +108,52 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request)
     {
-        //
+
+        // validate request data
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required',
+            'category' => 'required|string',
+            'brand' => 'required|string',
+            'shipping' => 'required|boolean',
+            'sku' => 'string',
+            'colors' => 'string'
+        ]);
+
+        // store the data in the products table
+        Product::update($fields);
+
+        // get the product id
+        $id = $request->id;
+
+        // get the request images
+        if ($request->has('images')) {
+            // loop through the images
+            foreach($request->file('images') as $image) {
+
+                $imageName= $id.'_'.$fields['name'].'_image_'.time().rand(1,1000).'.'.$image->extension();
+
+                // store the images in s3
+                $path = $image->storeAs('products/'.$id, $imageName, 's3');
+
+                // store the images in the images table
+                Image::create([
+                    'product_id' => $id,
+                    'image' => $path
+                ]);
+            }
+        }
+
+        $response = [
+            'message' => 'Product created'
+        ];
+
+        return response($response, 201);
+
+
     }
 
     /**
@@ -96,8 +162,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $path = 'products/'.$id;
+        Storage::disk('s3')->deleteDirectory($path);
+
+        return Product::destroy($id);
+
+        // return Product::find($id)->delete();
+
+        // $product = Product::find($id);
+        // $product->delete();
     }
 }
