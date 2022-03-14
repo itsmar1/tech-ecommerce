@@ -14,6 +14,7 @@ class AuthController extends Controller
 
         $fields = $request->validate([
             'name' => 'required|string',
+            'role' => 'string',
             'email' => 'required|email',
             'password' => 'required|confirmed'
         ]);
@@ -48,7 +49,7 @@ class AuthController extends Controller
         $user = User::where('email', $fields['email'])->first();
 
         // Checking password
-        if (!$user || !Hash::check($fields['email'], $user->password)) {
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
                 'message' => 'Invalid email or password'
             ], 401);
