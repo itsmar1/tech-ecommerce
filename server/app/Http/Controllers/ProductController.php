@@ -22,10 +22,10 @@ class ProductController extends Controller
         // get all products
         //
         $products = DB::table('products')
-                    ->join('images', 'products.id', '=', 'images.product_id')
-                    ->select('products.*', 'images.image')
-                    ->groupBy('products.id')
+                    ->join('thumbnails', 'products.id', '=', 'thumbnails.product_id')
+                    ->select('products.*', 'thumbnails.thumbnail')
                     ->get();
+
 
         return $products;
 
@@ -54,8 +54,8 @@ class ProductController extends Controller
             'category' => 'required|string',
             'brand' => 'required|string',
             'shipping' => 'boolean',
+            // 'colors' => 'string',
             'sku' => 'string',
-            'colors' => 'string',
             // 'thumbnail' => 'required|image'
         ]);
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
 
             // store the thumbnail in s3
             $thumbnail = $request->file('thumbnail');
-            $tnName = $id.'_image_'.time().rand(1, 1000).'.'.$thumbnail->extension();
+            $tnName = $id.'_thumbnail_'.time().rand(1, 1000).'.'.$thumbnail->extension();
             $path = $thumbnail->storeAs('products/'.$id, $tnName, 's3');
             $path = env('AWS_URL').$path;
             // store the thumbnail in thumbnails table
@@ -146,6 +146,7 @@ class ProductController extends Controller
         }
         // $images = $product->images;
         $product->images;
+        // $product->thumbnail->thumbnail;
 
         // $response = [
         //     'product' => $product,

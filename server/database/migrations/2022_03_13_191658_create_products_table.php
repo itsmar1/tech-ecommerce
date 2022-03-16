@@ -22,8 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('brand');
             $table->boolean('shipping')->default(true);
             $table->string('sku');
-            $table->string('colors');
-            $table->string('thumbnail');
+            // $table->string('colors');
             $table->timestamps();
         });
     }
