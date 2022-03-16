@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->double('price');
+            $table->unsignedDecimal('price', 8, 2);
             $table->string('category');
             $table->string('brand');
-            $table->boolean('shipping');
+            $table->boolean('shipping')->default(true);
             $table->string('sku');
             $table->string('colors');
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }
