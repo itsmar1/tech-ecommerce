@@ -1,8 +1,14 @@
+import React from 'react';
+
+import PageHero from '../layout/PageHero';
+
 
 const About = () => {
-    return <h1>
-        About
-    </h1>
+    return (
+        <main>
+            <PageHero title="about" />
+        </main>
+    );
 };
 
 export default About;
