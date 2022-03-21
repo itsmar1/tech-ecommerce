@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { XIcon } from '@heroicons/react/solid';
@@ -14,7 +15,7 @@ const MainNavigation = () => {
     };
 
     return (
-        <div className="w-screen h-[80px] shadow-md">
+        <div className="w-full h-[80px] shadow-md">
             <div className="flex  justify-between items-center w-full h-full px-8 sm:mb-6">
                 <div className="flex">
                     <div className='flex items-center'>
