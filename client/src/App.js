@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from './pages/NotFound';
 import MainNavigation from "./layout/MainNavigation";
+import Footer from "./layout/Footer";
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }
