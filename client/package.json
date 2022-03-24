@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.4"
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.0",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23"
