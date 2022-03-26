@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getProducts } from "./store/actions/products-actions";
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -14,7 +16,15 @@ import MainNavigation from "./layout/MainNavigation";
 import Footer from "./layout/Footer";
 
 
+
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  
   return (
     <>
       <MainNavigation />

@@ -1,10 +1,19 @@
 import React from 'react';
 
+import ListView from './ListView';
+import GridView from './GridView';
+import { useSelector } from 'react-redux';
+
 
 const ProductsList = () => {
-    return (
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque aut vitae eum at reiciendis voluptatum optio ipsam dignissimos sint! Officia necessitatibus praesentium tempora velit dolores veniam, ratione placeat iusto temporibus aliquam quas similique. Fugiat, impedit minima nisi accusamus dolor soluta velit illo, ad natus dolore magni exercitationem voluptate esse in!</div>
-    );
+    const gridView = useSelector((state) => state.ui.gridView);
+    const products = useSelector((state) => state.products.products);
+
+
+    if(gridView) {
+        return <GridView products={products} />
+    }
+    return <ListView products={products} />
 };
 
 

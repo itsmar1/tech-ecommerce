@@ -9,7 +9,12 @@ const initialState = {
 
 const productsSlice = createSlice({
     name: 'products',
-    initialState
+    initialState,
+    reducers: {
+        replaceProducts: (state, action) => {
+            state.products = action.payload;
+        }
+    }
 });
 
 

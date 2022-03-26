@@ -1,16 +1,24 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
 import { BsFillGridFill, BsList } from 'react-icons/bs';
 
+import { uiActions } from '../../store/ui-slice';
 
 const Sort = () => {
+    const dispatch = useDispatch();
+
+    const toggleHandler = () => {
+        dispatch(uiActions.toggleView());
+    };
+
+
     return (
         <div className='grid grid-cols-7 gap-2 items-center mb-8'>
             <div className='col-start-1 col-span-2 space-x-1'>
-                <button className='border-2 border-black rounded-md p-1 inline-block'>
+                <button className='border-2 border-black rounded-md p-1 inline-block' onClick={toggleHandler}>
                     <BsFillGridFill />
                 </button>
-                <button className='border-2 border-black rounded-md p-1 inline-block'>
+                <button className='border-2 border-black rounded-md p-1 inline-block'onClick={toggleHandler} >
                     <BsList />
                 </button>
                 <p className='text-sm inline-block capitalize'>23 products found</p>
