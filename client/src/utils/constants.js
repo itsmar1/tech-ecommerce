@@ -6,7 +6,7 @@ export const API_URL = 'http://localhost:8080';
 
 
 export const CATEGORIES = [
-    'Desktop', 'Laptop', 'Printer', 'Scanner', 'Tablet', 'Monitor'
+    'all', 'desktop', 'laptop', 'printer', 'scanner', 'tablet', 'monitor'
 ];
 
 export const BRANDS = [

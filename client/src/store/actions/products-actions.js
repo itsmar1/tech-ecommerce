@@ -13,8 +13,12 @@ export const getProducts = () => {
 
         try {
             const products = await fetchData();
-            console.log(products);
+            // let prices = products.map((product) => product.price);
+            // const maxPrice = Math.max(...prices);
+            // const minPrice = Math.min(...prices);
             dispatch(productsActions.replaceProducts(products));
+            // dispatch(productsActions.setMaxPrice(maxPrice));
+            // dispatch(productsActions.setMinPrice(minPrice));
             
         } catch (error) {
             console.log('error');
