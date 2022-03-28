@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const ProductsList = () => {
     const gridView = useSelector((state) => state.ui.gridView);
-    const products = useSelector((state) => state.products.products);
+    const products = useSelector((state) => state.products.filteredProducts);
 
 
     if(gridView) {
