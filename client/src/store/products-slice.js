@@ -6,7 +6,15 @@ const initialState = {
     filteredProducts: [],
     totalProducts: 0,
     minPrice: 0,
-    maxPrice: 0
+    maxPrice: 0,
+    sort: 'price-lowest',
+    filters: {
+        search: '',
+        category: 'all',
+        company: 'all',
+        price: 0,
+        shipping: false
+    }
 };
 
 
@@ -22,6 +30,36 @@ const productsSlice = createSlice({
             let prices = state.products.map((product) => product.price);
             state.maxPrice = Math.max(...prices);
             state.minPrice = Math.min(...prices);
+            state.filters.price = Math.max(...prices);
+        },
+        setFilters: (state, action) => {
+            state.filters = action.payload;
+        },
+        sortProducts: (state, action) => {
+            const value = action.payload;
+            let tempProducts = [];
+            if (value === 'price-lowest') {
+                tempProducts = state.filteredProducts.sort((a, b) => {
+                    return a.price - b.price;
+                })
+            }
+            if (value === 'price-highest') {
+                tempProducts = state.filteredProducts.sort((a, b) => {
+                    return b.price - a.price;
+                })
+            }
+            if (value === 'name-a') {
+                tempProducts = state.filteredProducts.sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                })
+            }
+            if (value === 'name-z') {
+                tempProducts = state.filteredProducts.sort((a, b) => {
+                    return b.name.localeCompare(a.name);
+                })
+            }
+            state.filteredProducts = tempProducts;
+            state.sort = value;
         },
         filterProducts: (state, action) => {
             const { search, category, company, price, shipping } = action.payload;
@@ -43,7 +81,7 @@ const productsSlice = createSlice({
             }
             if (shipping) {
                 tempProducts = tempProducts.filter(
-                    (product) => product.shipping === true
+                    (product) => product.shipping == true
                 )
             }
             tempProducts = tempProducts.filter(
@@ -53,15 +91,18 @@ const productsSlice = createSlice({
             state.totalProducts = tempProducts.length;
         },
         clearFilter: (state, action) => {
-            state.filteredProducts = state.products;
-            state.totalProducts = state.products.length;
-        },
-        // setMinPrice: (state, action) => {
-        //     state.minPrice = action.payload;
-        // },
-        // setMaxPrice: (state, action) => {
-        //     state.maxPrice = action.payload;
-        // }
+            // state.filteredProducts = state.products;
+            // state.totalProducts = state.products.length;
+            state.filters = {
+                ...state.filters,
+                search: '',
+                category: 'all',
+                company: 'all',
+                price: state.maxPrice,
+                shipping: false
+            }
+            console.log(state.filters);
+        }
     }
 });
 

@@ -4,22 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { BRANDS, CATEGORIES } from "../../utils/constants";
 
-const initialFilters = {
-  search: '',
-  category: 'all',
-  company: 'all',
-  price: 0,
-  shipping: false
-};
+// const initialFilters = {
+//   search: '',
+//   category: 'all',
+//   company: 'all',
+//   price: 0,
+//   shipping: false
+// };
 
-const Filters = () => {
+const Filters = ({ filters }) => {
   const dispatch = useDispatch();
   const minPrice = useSelector(state => state.products.minPrice);
   const maxPrice = useSelector((state) => state.products.maxPrice);
-  const [filters, setFilters] = useState({
-    ...initialFilters,
-    price: maxPrice
-  });
+  // const [filters, setFilters] = useState({
+  //   ...initialFilters,
+  //   'price': maxPrice
+  // });
+
+  // const [filters, setFilters] = useState(props.filters);
 
   const updateFilters = (e) => {
     let name = e.target.name;
@@ -27,16 +29,28 @@ const Filters = () => {
     if(name === 'category') {
       value = e.target.textContent;
     }
+    if (name === 'company') {
+      value = e.target.value.toLowerCase()
+    }
     if (name === 'price') {
       value = Number(value);
     }
     if (name === 'shipping') {
       value = e.target.checked;
     }
-    setFilters({
+    // setFilters({
+    //   ...filters,
+    //   [e.target.name]: value
+    // });
+    dispatch(productsActions.setFilters({
       ...filters,
-      name: value
-    });
+      [e.target.name]: value
+    }));
+  };
+
+
+  const clearFilters = () => {
+    dispatch(productsActions.clearFilter());
   };
 
   useEffect(() => {
@@ -82,7 +96,7 @@ const Filters = () => {
           <select name="company" className="form-select" onChange={updateFilters} >
             {BRANDS.map((c, index) => {
               return (
-                <option value={c} key={index} >
+                <option key={index} value={c} >
                   {c}
                 </option>
               );
@@ -120,6 +134,7 @@ const Filters = () => {
       <button
         type="button"
         className="bg-primary text-white px-2 py-1 rounded-md font-semibold shadow-md"
+        onClick={clearFilters}
       >
         Clear Filters
       </button>
