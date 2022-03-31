@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import ProductImages from '../components/productDetail/ProductImages';
 import Stars from '../components/productDetail/Stars';
 import PageHero from '../layout/PageHero';
+import AddToCart from '../components/productDetail/AddToCart';
 import { getProductDetails } from '../store/actions/products-actions';
 
 
@@ -19,6 +20,7 @@ const ProductDetail = () => {
     
     const product = useSelector((state) => state.products.productDetails);
     const {
+        id,
         name,
         description,
         price,
@@ -54,6 +56,7 @@ const ProductDetail = () => {
                             {brand}
                         </p>
                         <hr />
+                        <AddToCart product />
                     </div>
                 </div>
             </div>
