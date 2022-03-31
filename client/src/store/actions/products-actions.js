@@ -21,7 +21,27 @@ export const getProducts = () => {
             // dispatch(productsActions.setMinPrice(minPrice));
             
         } catch (error) {
-            console.log('error');
+            console.log('failed to fetch products');
         }
     }
+};
+
+
+export const getProductDetails = (id) => {
+    return async dispatch => {
+        const fetchData = async () => {
+            const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+
+            const data = await response.data;
+            return data;
+        };
+
+        try {
+            const productDetails = await fetchData();
+            dispatch(productsActions.setProductDetails(productDetails));
+        } catch (error) {
+            console.log('failed to fetch product details');
+        }
+    }
+
 };

@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     products: [],
     filteredProducts: [],
+    productDetails: [],
     totalProducts: 0,
     minPrice: 0,
     maxPrice: 0,
@@ -102,6 +103,9 @@ const productsSlice = createSlice({
                 shipping: false
             }
             console.log(state.filters);
+        },
+        setProductDetails: (state, action) => {
+            state.productDetails = action.payload;
         }
     }
 });

@@ -11,8 +11,9 @@ const GridView = ({ products }) => {
                 const { id, name, price, thumbnail } = product;
                 return (
                     <div key={id}>
-                        <div className='relative bg-[#222] rounded'>
-                            <img className='w-full h-[175px] block object-cover rounded' src={thumbnail} alt={name} />
+                        <div className='relative rounded'>
+                        {/* <div className='relative bg-[#222] rounded'> */}
+                            <img className='w-full h-[175px] block object-contain rounded' src={thumbnail} alt={name} />
                             <Link className='absolute top-1/2 left-1/2 bg-secondary-100 flex items-start justify-center w-10 h-10 rounded-full opacity-0 hover:opacity-100' to={`/products/${id}`}>
                                 <FaSearch />
                             </Link>
