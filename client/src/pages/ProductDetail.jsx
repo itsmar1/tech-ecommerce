@@ -17,6 +17,8 @@ const ProductDetail = () => {
     useEffect(() => {
         dispatch(getProductDetails(productId));
     }, [dispatch, productId]);
+
+    
     
     const product = useSelector((state) => state.products.productDetails);
     const {
@@ -56,7 +58,7 @@ const ProductDetail = () => {
                             {brand}
                         </p>
                         <hr />
-                        <AddToCart product />
+                        <AddToCart product={product} />
                     </div>
                 </div>
             </div>
