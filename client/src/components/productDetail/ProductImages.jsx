@@ -15,7 +15,7 @@ const ProductImages = ({ images = [[]] }) => {
                             alt="" 
                             key={index}
                             onClick={() => setMain(images[index])}
-                            className={`h-12 lg:h-20 w-full block rounded object-cover cursor-pointer ${main.image === image.image ? 'border-2 border-solid border-secondary-200' : '' }`}
+                            className={`h-12 lg:h-20 w-full block rounded object-contain cursor-pointer ${main.image === image.image ? 'border-2 border-solid border-secondary-200' : '' }`}
                         />
                     )
                 })}

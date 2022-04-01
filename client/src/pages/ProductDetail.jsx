@@ -27,6 +27,7 @@ const ProductDetail = () => {
         description,
         price,
         brand,
+        company,
         sku,
         images
     } = product;
