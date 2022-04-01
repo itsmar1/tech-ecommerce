@@ -7,6 +7,7 @@ import Stars from '../components/productDetail/Stars';
 import PageHero from '../layout/PageHero';
 import AddToCart from '../components/productDetail/AddToCart';
 import { getProductDetails } from '../store/actions/products-actions';
+import { formatPrice } from '../utils/helpers';
 
 
 
@@ -44,7 +45,7 @@ const ProductDetail = () => {
                     <div>
                         <h2 className='font-bold text-5xl tracking-wide'>{name}</h2>
                         <Stars />
-                        <h4>{price}</h4>
+                        <h4 className='text-xl font-bold'>{formatPrice(price)}</h4>
                         <p className='max-w-3xl leading-loose'>{description}</p>
                         <p className='capitalize w-80 grid grid-cols-4 text-lg'>
                             <span className='block col-span-1'>Available : </span>

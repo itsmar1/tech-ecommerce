@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import { formatPrice } from '../../utils/helpers';
 
 
 const GridView = ({ products }) => {
@@ -20,7 +21,7 @@ const GridView = ({ products }) => {
                         </div>
                         <footer className='flex mt-4 justify-between items-center'>
                             <h4 className='mb-0 font-normal'>{name}</h4>
-                            <p className='mb-0 font-normal text-secondary-100 tracking-widest'>{price}</p>
+                            <p className='mb-0 font-normal text-secondary-100 tracking-widest'>{formatPrice(price)}</p>
                         </footer>
                     </div>
                 );

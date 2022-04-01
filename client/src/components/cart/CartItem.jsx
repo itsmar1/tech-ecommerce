@@ -1,6 +1,8 @@
 import React from 'react';
 import ProductAmount from './ProductAmount';
 
+import { formatPrice } from '../../utils/helpers';
+
 
 const CartItem = ({ cart }) => {
     return (
@@ -20,14 +22,14 @@ const CartItem = ({ cart }) => {
                         </div>
                         <div>
                             <span className='font-bold'>Price: </span>
-                            <span>{product.price}</span>
+                            <span>{formatPrice(product.price)}</span>
                         </div>
                     </div>
                 </div>
                 <div>
                     <ProductAmount quantity={product.quantity} id={product.id} />
                     <div className='w-[150px] text-center'>
-                        <span>{product.totalPrice}</span>
+                        <span>{formatPrice(product.totalPrice)}</span>
                     </div>
                 </div>
                 <hr className='my-4' />
