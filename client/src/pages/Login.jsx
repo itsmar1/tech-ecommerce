@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { FaUserAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { FiLogIn } from 'react-icons/fi'
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -36,7 +36,7 @@ const Login = () => {
             </label>
             <div className="flex py-1">
               <span className="flex items-center justify-center border border-gray-300 border-r-0 py-2 px-3 bg-gray-300  text-black">
-                <FaUserAlt />
+                <MdEmail />
               </span>
               <input
                 type="email"
