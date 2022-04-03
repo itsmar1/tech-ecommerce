@@ -13,10 +13,10 @@ const Dashboard = () => {
     console.log(pathname);
     return (
         <div className='w-full flex'>
-            <div className='w-[300px] h-screen bg-gradient-to-tr from-green-200 to-primary'>
+            <div className='w-[300px] h-screen top-0 left-0 sticky bg-gradient-to-tr from-green-200 to-primary'>
                 <TheSidebar />
             </div>
-            <div className='w-full'>
+            <div className='w-full bg-gray-200'>
                 <DashboardNavbar />
                 <div>
                     {pathname === '/admin/dashboard' && <DashboardContent />}
