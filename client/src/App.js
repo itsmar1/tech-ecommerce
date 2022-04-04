@@ -32,7 +32,7 @@ const App = () => {
   
   return (
     <>
-      {/* <MainNavigation /> */}
+      <MainNavigation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -49,7 +49,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
