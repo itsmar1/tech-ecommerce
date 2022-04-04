@@ -14,6 +14,11 @@ import Register from "./pages/Register";
 import NotFound from './pages/NotFound';
 import MainNavigation from "./layout/MainNavigation";
 import Footer from "./layout/Footer";
+import Dashboard from "./pages/dashboard/Dashboard";
+import TheProducts from "./components/dashboard/TheProducts";
+import AddProduct from "./components/dashboard/AddProduct";
+import UpdateProduct from "./components/dashboard/UpdateProduct";
+
 
 
 
@@ -37,6 +42,11 @@ const App = () => {
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="admin/dashboard" element={<Dashboard />}>
+          <Route path="products" element={<TheProducts />} />
+          <Route path="addproduct" element={<AddProduct />} />
+          <Route path="updateproduct" element={<UpdateProduct />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
