@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import { MdEmail } from "react-icons/md";
 import { FiLogIn } from 'react-icons/fi'
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import { login } from '../store/actions/auth-actions';
 
 
@@ -14,8 +14,6 @@ import { login } from '../store/actions/auth-actions';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -27,16 +25,9 @@ const Login = () => {
       password: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-      // console.log(values);
+
       try {
         await dispatch(login(values));
-        // console.log(isAdmin);
-        // if (isAdmin) {
-        //   // <Navigate replace to='/admin/dashboard' />
-        //   navigate('/admin/dashboard', { replace: true })
-        // } else {
-        //   navigate('/products', { replace: true })
-        // }
       } catch (error) {
         console.log(error);
       }

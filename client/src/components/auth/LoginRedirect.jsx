@@ -17,7 +17,7 @@ const LoginRedirect = () => {
 
     return (
         // isAdmin ? navigate('/admin/dashboard', { replace: true }) : <Outlet />
-        isAdmin ? <Navigate to='/admin/dashboard' replace /> : <Outlet />
+        isAdmin ? <Navigate to='/admin/dashboard' replace /> : user ? <Navigate to='/products' replace /> : <Outlet />
     );
 
 };
