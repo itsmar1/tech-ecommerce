@@ -18,7 +18,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import TheProducts from "./components/dashboard/TheProducts";
 import AddProduct from "./components/dashboard/AddProduct";
 import UpdateProduct from "./components/dashboard/UpdateProduct";
+
 import LoginRedirect from "./components/auth/LoginRedirect";
+import RegisterRedirect from "./components/auth/RegisterRedirect";
 
 
 
@@ -45,7 +47,9 @@ const App = () => {
         <Route element={<LoginRedirect />}>
           <Route path="/login" element={<Login />} />
         </Route>
-        <Route path="/register" element={<Register />} />
+        <Route element={<RegisterRedirect />}>
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="admin/dashboard" element={<Dashboard />}>
           <Route path="products" element={<TheProducts />} />
           <Route path="addproduct" element={<AddProduct />} />

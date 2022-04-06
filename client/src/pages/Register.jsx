@@ -18,19 +18,24 @@ const Register = () => {
       name: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
+      password_confirmation: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
-      passwordConfirmation: Yup.string()
+      password_confirmation: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must much")
         .required("Required"),
     }),
     onSubmit: async (values) => {
       // console.log(values);
-      await dispatch(register(values));
+      try {
+        console.log(values);
+        await dispatch(register(values));
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -117,7 +122,7 @@ const Register = () => {
           </div>
           <div className="flex flex-col space-y-1 mb-4">
             <label
-              htmlFor="passwordConfirmation"
+              htmlFor="password_confirmation"
               className="font-semibold tracking-wider"
             >
               Confirm Password
@@ -128,19 +133,19 @@ const Register = () => {
               </span>
               <input
                 type="password"
-                name="passwordConfirmation"
-                id="passwordConfirmation"
+                name="password_confirmation"
+                id="password_confirmation"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.passwordConfirmation}
+                value={formik.values.password_confirmation}
                 className="form-input rounded-r w-full"
                 placeholder="********"
               />
             </div>
-            {formik.touched.passwordConfirmation &&
-              formik.errors.passwordConfirmation && (
+            {formik.touched.password_confirmation &&
+              formik.errors.password_confirmation && (
                 <p className="text-xs text-red-600">
-                  {formik.errors.passwordConfirmation}
+                  {formik.errors.password_confirmation}
                 </p>
               )}
           </div>

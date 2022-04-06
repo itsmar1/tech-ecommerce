@@ -22,16 +22,11 @@ const authSlice = createSlice({
             }
         },
         register(state, action) {
-            const user = action.payload;
+            const user = action.payload.user;
             state.user = user;
-            if (user.role === 'admin') {
-                state.isAuthenticated = true;
-                state.isAdmin = true;
-            }
-            else {
-                state.isAuthenticated = true;
-                state.isAdmin = false;
-            }
+            state.token = action.payload.token;
+            state.isAuthenticated = true;
+            state.isAdmin = false;
         }
     }
 });
