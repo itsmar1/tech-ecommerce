@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "./store/actions/products-actions";
 
 import Home from './pages/Home';
@@ -18,12 +18,14 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import TheProducts from "./components/dashboard/TheProducts";
 import AddProduct from "./components/dashboard/AddProduct";
 import UpdateProduct from "./components/dashboard/UpdateProduct";
+import LoginRedirect from "./components/auth/LoginRedirect";
 
 
 
 
 const App = () => {
   const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -32,7 +34,7 @@ const App = () => {
   
   return (
     <>
-      <MainNavigation />
+      {!isAdmin && <MainNavigation />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -40,7 +42,9 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<LoginRedirect />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="admin/dashboard" element={<Dashboard />}>
           <Route path="products" element={<TheProducts />} />
@@ -49,7 +53,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {!isAdmin && <Footer />}
     </>
   );
 }

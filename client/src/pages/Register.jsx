@@ -7,8 +7,12 @@ import { FiLogIn } from "react-icons/fi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from '../store/actions/auth-actions';
 
 const Register = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -24,8 +28,9 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Passwords must much")
         .required("Required"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      // console.log(values);
+      await dispatch(register(values));
     },
   });
 
