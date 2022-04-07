@@ -28,7 +28,7 @@ const TheSidebar = () => {
                     <span className='inline-flex mr-3 text-primary'><MdAddCircle /> </span>
                     Add Product
                 </Link>
-                <Link to='/admin/dashboard/updateproduct' className='border-b-2 pb-3 border-gray-500'>
+                <Link to='/admin/dashboard/updateproducts' className='border-b-2 pb-3 border-gray-500'>
                     <span className='inline-flex mr-3 text-primary'><MdUpdate /> </span>
                     Update Product
                 </Link>

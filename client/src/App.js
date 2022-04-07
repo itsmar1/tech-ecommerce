@@ -17,7 +17,8 @@ import Footer from "./layout/Footer";
 import Dashboard from "./pages/dashboard/Dashboard";
 import TheProducts from "./components/dashboard/TheProducts";
 import AddProduct from "./components/dashboard/AddProduct";
-import UpdateProduct from "./components/dashboard/UpdateProduct";
+import UpdateProducts from "./components/dashboard/UpdateProducts";
+import ProductUpdate from "./components/dashboard/ProductUpdate";
 
 import LoginRedirect from "./components/auth/LoginRedirect";
 import RegisterRedirect from "./components/auth/RegisterRedirect";
@@ -53,7 +54,10 @@ const App = () => {
         <Route path="admin/dashboard" element={<Dashboard />}>
           <Route path="products" element={<TheProducts />} />
           <Route path="addproduct" element={<AddProduct />} />
-          <Route path="updateproduct" element={<UpdateProduct />} />
+          <Route path="updateproducts">
+            <Route index element={<UpdateProducts />} />
+            <Route path=":productId" element={<ProductUpdate />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
