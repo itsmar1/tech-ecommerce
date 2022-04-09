@@ -49,3 +49,32 @@ export const register = (payload) => {
         }
     }
 };
+
+
+export const logout = (token) => {
+    return async dispatch => {
+        console.log(token);
+        await api.get('/sanctum/csrf-cookie');
+
+        const logout = async () => {
+            const response = await api.post('/api/logout', null, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
+                // withCredentials: true
+            });
+            const message = response.data;
+            return message;
+        };
+
+        try {
+            const message = await logout();
+            console.log('Logout message : ', message);
+            dispatch(authActions.logout());
+            
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+};

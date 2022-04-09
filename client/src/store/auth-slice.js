@@ -27,6 +27,10 @@ const authSlice = createSlice({
             state.token = action.payload.token;
             state.isAuthenticated = true;
             state.isAdmin = false;
+        },
+        logout(state) {
+            // state = initialState;
+            Object.assign(state, initialState);
         }
     }
 });

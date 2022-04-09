@@ -3,9 +3,20 @@ import { Link } from 'react-router-dom';
 import { AiFillDashboard } from 'react-icons/ai'
 import { MdAddCircle, MdUpdate, MdViewList } from 'react-icons/md';
 import { BiLogOutCircle } from 'react-icons/bi'
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/actions/auth-actions';
 
 
 const TheSidebar = () => {
+    const dispatch = useDispatch();
+    const token = useSelector((state) => state.auth.token);
+
+
+    const logoutUser = async () => {
+        await dispatch(logout(token));
+    };
+
+
     return (
         <div className='flex flex-col h-full px-6'>
             <div className='mb-12 mt-8 flex flex-col justify-center items-center'>
@@ -34,7 +45,7 @@ const TheSidebar = () => {
                 </Link>
             </div>
             <div className='mt-auto mb-8'>
-                    <button className='px-4 py-2 bg-gray-400 rounded-md flex items-center shadow-lg'>
+                    <button className='px-4 py-2 bg-gray-400 rounded-md flex items-center shadow-lg' onClick={logoutUser}>
                         <span className='inline-flex mr-3 font-bold'><BiLogOutCircle /></span>
                         logout
                     </button>
