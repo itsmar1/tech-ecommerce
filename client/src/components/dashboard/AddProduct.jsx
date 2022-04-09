@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // import Dropzone from "react-dropzone";
@@ -6,8 +6,30 @@ import * as Yup from "yup";
 
 import { FaDollarSign } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../store/actions/products-actions";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const [tnail, setTnail] = useState("");
+  const [pImages, setPImages] = useState("");
+
+  const thumbnailHandler = (file) => {
+    console.log('thumbnail: ', file);
+    setTnail(file);
+  };
+
+
+  const imagesHandler = (event) => {
+    const imageArray = [];
+    for (let i=0; i < event.target.files.length; i++) {
+      imageArray.push(event.target.files[i]);
+    }
+    setPImages(imageArray);
+
+  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -17,8 +39,6 @@ const AddProduct = () => {
       brand: "",
       shipping: false,
       sku: "BlkjdfKj23jrdfkj1",
-      thumbnail: undefined,
-      images: [],
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
@@ -26,10 +46,30 @@ const AddProduct = () => {
       price: Yup.number().required("Required"),
       category: Yup.string().required("Required"),
       brand: Yup.string().required("Required"),
-      thumbnail: Yup.mixed().required("Product thumbnail is required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      const formData = new FormData();
+      formData.append('thumbnail', tnail);
+
+      for (let i=0; i < pImages.length; i++) {
+        formData.append('images[]', pImages[i]);
+      } 
+
+      formData.append('name', values.name);
+      formData.append('description', values.description);
+      formData.append('price', values.price);
+      formData.append('category', values.category);
+      formData.append('brand', values.brand);
+      formData.append('sku', formik.values.sku);
+      const shippingValue = formik.values.shipping ? 1 : 0;
+      formData.append('shipping', shippingValue);
+
+      const payload = {
+        product: formData,
+        token
+      };
+      console.log(payload);
+      dispatch(addProduct(payload));
     },
   });
 
@@ -222,8 +262,8 @@ const AddProduct = () => {
                 type="checkbox"
                 name="shipping"
                 id="shipping"
-                onChange={formik.handleChange}
-                value={true}
+                onChange={() => formik.setFieldValue('shipping', !formik.values.shipping)}
+                value={formik.values.shipping}
                 className="form-checkbox"
               />
               <label htmlFor="shipping" className="tracking-wider">
@@ -239,14 +279,17 @@ const AddProduct = () => {
                 type="file"
                 name="thumbnail"
                 id="thumbnail"
-                // onChange={handleFileChange}
-                onChange={(event) => {
-                  formik.setFieldValue(
-                    "thumbnail",
-                    event.currentTarget.files[0]
-                  );
-                }}
-                onBlur={formik.handleBlur}
+                // onChange={(event) => {
+                //   formik.setFieldValue("thumbnail", () => {
+                //     const fd = new FormData();
+                //     fd.append('thumbnail', event.currentTarget.files[0]);
+                //     return fd;
+                //   });
+                // }}
+                // onChange={(event) => {
+                //   formik.setFieldValue('thumbnail', event.target.files[0]);
+                // }}
+                onChange={(e) => thumbnailHandler(e.target.files[0])}
                 className="w-full"
               />
               {formik.touched.thumbnail && formik.errors.thumbnail && (
@@ -264,9 +307,15 @@ const AddProduct = () => {
                 type="file"
                 name="images[]"
                 id="images"
-                onChange={(event) => {
-                  formik.setFieldValue("images", event.currentTarget.files)
-                }}
+                // onChange={(event) => {
+                //   // formik.setFieldValue("images", event.currentTarget.files)
+                //   formik.setFieldValue("images", () => {
+                //     const fd = new FormData();
+                //     fd.append('images', event.target.files);
+                //     return fd;
+                //   })
+                // }}
+                onChange={imagesHandler}
                 multiple
               />
               {/* <div className="w-full h-auto bg-gray-500" {...getRootProps()} >

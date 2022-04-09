@@ -82,7 +82,7 @@ const productsSlice = createSlice({
             }
             if (shipping) {
                 tempProducts = tempProducts.filter(
-                    (product) => product.shipping == true
+                    (product) => product.shipping === 1
                 )
             }
             tempProducts = tempProducts.filter(
@@ -106,7 +106,11 @@ const productsSlice = createSlice({
         },
         setProductDetails: (state, action) => {
             state.productDetails = action.payload;
-        }
+        },
+        // addProduct: (state, action) => {
+        //     const product = action.payload;
+        //     state.products.unshift(product);
+        // }
     }
 });
 

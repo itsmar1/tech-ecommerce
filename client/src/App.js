@@ -29,6 +29,7 @@ import RegisterRedirect from "./components/auth/RegisterRedirect";
 const App = () => {
   const dispatch = useDispatch();
   const isAdmin = useSelector((state) => state.auth.isAdmin);
+  // const products = useSelector((state) => state.products.products);
 
   useEffect(() => {
     dispatch(getProducts());
