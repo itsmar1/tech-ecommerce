@@ -22,7 +22,8 @@ import ProductUpdate from "./components/dashboard/ProductUpdate";
 
 import LoginRedirect from "./components/auth/LoginRedirect";
 import RegisterRedirect from "./components/auth/RegisterRedirect";
-
+import DashboardRedirect from "./components/auth/DashboardRedirect";
+import HomeRedirect from "./components/auth/HomeRedirect";
 
 
 
@@ -40,26 +41,34 @@ const App = () => {
     <>
       {!isAdmin && <MainNavigation />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:productId" element={<ProductDetail />} />
+        <Route element={<HomeRedirect />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<ProductDetail />} />
+        </Route>
+
         <Route element={<LoginRedirect />}>
           <Route path="/login" element={<Login />} />
         </Route>
+
         <Route element={<RegisterRedirect />}>
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="admin/dashboard" element={<Dashboard />}>
-          <Route path="products" element={<TheProducts />} />
-          <Route path="addproduct" element={<AddProduct />} />
-          <Route path="updateproducts">
-            <Route index element={<UpdateProducts />} />
-            <Route path=":productId" element={<ProductUpdate />} />
+
+        <Route element={<DashboardRedirect />}>
+          <Route path="admin/dashboard" element={<Dashboard />}>
+            <Route path="products" element={<TheProducts />} />
+            <Route path="addproduct" element={<AddProduct />} />
+            <Route path="updateproducts">
+              <Route index element={<UpdateProducts />} />
+              <Route path=":productId" element={<ProductUpdate />} />
+            </Route>
           </Route>
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!isAdmin && <Footer />}
