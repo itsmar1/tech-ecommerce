@@ -170,7 +170,9 @@ class ProductController extends Controller
     public function update(Request $request)
     {
 
-        return Product::update($request->all());
+        // return Product::update($request->all());
+        return Product::find($request->id)->update($request->all());
+
 
         // // validate request data
         // $fields = $request->validate([

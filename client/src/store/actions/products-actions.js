@@ -72,3 +72,51 @@ export const addProduct = ({ product, token }) => {
         }
     };
 };
+
+
+
+
+
+export const updateProduct = ({ product, id, token }) => {
+    return async dispatch => {
+
+        await api.get('/sanctum/csrf-cookie');
+        console.log('product : ', product);
+        console.log('id : ', id);
+        console.log('token : ', token);
+
+        const putData = async () => {
+            const response = await api.put(`/api/products/${id}`, product, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+            const data = response.data;
+            return data;
+        };
+
+        try {
+            const product = await putData();
+            console.log(product);
+            dispatch(getProducts());
+            
+        } catch (error) {
+            console.log(error);
+        }
+
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+

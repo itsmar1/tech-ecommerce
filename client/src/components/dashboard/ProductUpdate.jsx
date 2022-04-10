@@ -4,12 +4,17 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaDollarSign } from "react-icons/fa";
 import { HiChevronDoubleLeft } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProduct } from "../../store/actions/products-actions";
+
 
 const ProductUpdate = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { product } = location.state;
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -28,8 +33,10 @@ const ProductUpdate = () => {
       category: Yup.string().required("Required"),
       brand: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      
+      await dispatch(updateProduct({ product: values, id: productId, token }));
+      
     },
   });
 
