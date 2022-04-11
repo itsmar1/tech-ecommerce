@@ -2,16 +2,27 @@ import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { XIcon } from '@heroicons/react/solid';
+import { useSelector, useDispatch } from 'react-redux';
 
 import HambergurMenu from '../assets/HambergurMenu.svg';
 import Logo from '../assets/logo.svg';
 import NavCartButton from '../components/cart/NavCartButton';
+import { logout } from '../store/actions/auth-actions';
+
 
 const MainNavigation = () => {
     const [showNav, setShowNav] = useState(false);
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const token = useSelector((state) => state.auth.token);
     
     const navHandler = () => {
         setShowNav(!showNav);
+    };
+
+    const logoutUser = () => {
+        
+        dispatch(logout(token));
     };
 
     return (
@@ -42,13 +53,14 @@ const MainNavigation = () => {
                             <NavLink className='ml-2 p-2 lg:text-lg font-semibold' to="/products">Products</NavLink>
                         </li>
                         <li>
-                            <NavLink className='ml-2 p-2 lg:text-lg font-semibold' to="/checkout">Checkout</NavLink>
+                            {isAuthenticated && <NavLink className='ml-2 p-2 lg:text-lg font-semibold' to="/checkout">Checkout</NavLink>}
                         </li>
                     </ul>
                 </div>
                 <div className="hidden md:flex">
                     <NavCartButton />
-                    <NavLink className='bg-primary text-white font-bold px-4 py-2 ml-2 rounded-full shadow-lg' to="/login">Login</NavLink>
+                    {!isAuthenticated && <NavLink className='border-primary border-4 text-primary font-bold px-4 py-2 ml-2 rounded-full shadow-lg' to="/login">Login</NavLink>}
+                    {isAuthenticated && <button onClick={logoutUser} className='border-primary border-4 text-primary font-bold px-4 py-2 ml-2 rounded-full shadow-lg'>Logout</button>}
                 </div>
                 <div className="md:hidden cursor-pointer" onClick={navHandler}>
                     {!showNav ? <img src={HambergurMenu} alt="" /> : <XIcon className='w-5' />}
@@ -66,11 +78,12 @@ const MainNavigation = () => {
                 <NavLink to="/products" onClick={navHandler}>Products</NavLink>
             </li>
             <li className='border-b-2 border-zinc-300 w-full mt-4 text-lg font-semibold text-gray-600'>
-                <NavLink to="/checkout" onClick={navHandler}>Checkout</NavLink>
+                {isAuthenticated && <NavLink to="/checkout" onClick={navHandler}>Checkout</NavLink>}
             </li>
             <div className='flex flex-col items-center m-4 space-y-4'>
                 <div onClick={navHandler}><NavCartButton /></div>
-                <NavLink  onClick={navHandler} to="/login" className='bg-primary text-white font-bold px-9 py-2 ml-2 rounded-full shadow-lg'>Login</NavLink>
+                {!isAuthenticated && <NavLink  onClick={navHandler} to="/login" className='border-primary border-4 text-primary font-bold px-9 py-2 ml-2 rounded-full shadow-lg'>Login</NavLink>}
+                {isAuthenticated && <button onClick={logoutUser} className='border-primary border-4 text-primary font-bold px-9 py-2 ml-2 rounded-full shadow-lg'>Logout</button>}
             </div>
         </ul>
             
