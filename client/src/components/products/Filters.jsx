@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { productsActions } from "../../store/products-slice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { BRANDS, CATEGORIES } from "../../utils/constants";
+import { formatPrice } from '../../utils/helpers';
 
 // const initialFilters = {
 //   search: '',
@@ -70,7 +71,7 @@ const Filters = ({ filters }) => {
             value={filters.text}
             placeholder="search"
             onChange={updateFilters}
-            className="form-input rounded-lg"
+            className="form-input rounded-lg bg-gray-200 border-0 pr-0"
           />
         </div>
         {/* category */}
@@ -83,7 +84,8 @@ const Filters = ({ filters }) => {
                 type="button"
                 name="category"
                 onClick={updateFilters}
-                className="block py-1 capitalize text-gray-600"
+                // className="block py-1 capitalize text-gray-600"
+                className={`block py-1 capitalize text-gray-600 ${filters.category === c ? 'border-b-2 border-primary' : ''}`}
               >
                 {c}
               </button>
@@ -93,7 +95,7 @@ const Filters = ({ filters }) => {
         {/* company */}
         <div className="mb-6">
           <h4 className="mb-2 font-bold capitalize text-lg">company</h4>
-          <select name="company" className="form-select" onChange={updateFilters} >
+          <select name="company" className="form-select rounded cursor-pointer bg-gray-200 border-0 py-1" onChange={updateFilters} >
             {BRANDS.map((c, index) => {
               return (
                 <option key={index} value={c} >
@@ -106,7 +108,7 @@ const Filters = ({ filters }) => {
         {/* price */}
         <div className="mb-6">
           <h4 className="mb-1 font-bold capitalize text-lg">price</h4>
-          <p>{filters.price}</p>
+          <p className="italic">{formatPrice(filters.price)}</p>
           <input
             type="range"
             name="price"

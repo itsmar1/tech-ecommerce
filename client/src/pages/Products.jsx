@@ -14,11 +14,11 @@ const Products = () => {
         <main>
             <PageHero title="products" />
             <div className='flex w-[85vw] my-16 mx-auto'>
-                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-12'>
-                    <div className='sticky '>
+                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-12'>
+                    <div className='sticky lg:col-span-1'>
                         <Filters filters={filters} />
                     </div>
-                    <div className='mb-[50rem] md:col-span-2 lg:col-span-3'>
+                    <div className='mb-[20rem] md:col-span-2 lg:col-span-4'>
                         <Sort />
                         <ProductsList />
                     </div>
