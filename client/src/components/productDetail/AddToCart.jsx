@@ -37,7 +37,16 @@ const AddToCart = ({ product }) => {
 
     return (
         <div className='flex flex-col space-y-6'>
-            <div className='w-[140px] grid grid-cols-3 justify-center items-center'>
+            {/* <div className='w-[140px] grid grid-cols-3 justify-center items-center'>
+                <button type='button' onClick={decrease} className='py-4 w-8 h-4 flex justify-center items-center'>
+                    <FaMinus />
+                </button>
+                <h2 className='text-6xl font-bold text-gray-700'>{amount}</h2>
+                <button type='button' onClick={increase} className='py-4 w-8 h-4 flex justify-center items-center'>
+                    <FaPlus />
+                </button>
+            </div> */}
+            <div className='w-[140px] flex justify-between items-center'>
                 <button type='button' onClick={decrease} className='py-4 w-8 h-4 flex justify-center items-center'>
                     <FaMinus />
                 </button>
