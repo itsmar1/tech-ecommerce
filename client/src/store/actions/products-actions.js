@@ -7,6 +7,7 @@ import api from '../../utils/api';
 
 export const getProducts = () => {
     return async dispatch => {
+        dispatch(uiActions.productsLoading());
         const fetchData = async () => {
             const response = await axios.get('http://localhost:8000/api/products');
 
@@ -18,6 +19,7 @@ export const getProducts = () => {
             const products = await fetchData();
 
             dispatch(productsActions.replaceProducts(products));
+            dispatch(uiActions.productsLoading());
             
         } catch (error) {
             console.log('failed to fetch products');
