@@ -26,7 +26,7 @@ const MainNavigation = () => {
     };
 
     return (
-        <div className="w-full h-[80px] shadow-md">
+        <div className="w-full h-[80px]">
             <div className="flex  justify-between items-center w-full h-full px-8 sm:mb-6">
                 <div className="flex">
                     <div className='flex items-center'>

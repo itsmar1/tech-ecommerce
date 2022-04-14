@@ -34,7 +34,7 @@ const TheContact = () => {
                   onChange={inputHandler}
                   value={emaiInput}
                   placeholder="Enter your email"
-                  className="form-input rounded-l bg-gray-100"
+                  className="form-input rounded-l bg-gray-100 shadow-lg"
                 />
                 <button
                   type="submit"
