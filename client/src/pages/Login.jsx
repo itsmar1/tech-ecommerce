@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div className="w-[80%] mx-auto mt-40 mb-52">
-      <div className="w-[400px] rounded shadow-xl border-2 border-solid px-8 py-20 mx-auto">
+      <div className="w-[320px] sm:w-[400px] rounded shadow-xl border-2 border-solid px-4 sm:px-8 py-20 mx-auto">
         <h2 className="text-3xl uppercase tracking-wider font-bold text-center mb-12 select-none">
           <span className="text-primary">tech</span>
           <span className="text-secondary-200">shop</span>

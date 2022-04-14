@@ -5,8 +5,7 @@ import { authActions } from '../auth-slice';
 
 export const login = (payload) => {
     return async dispatch => {
-        const csrf = await api.get('/sanctum/csrf-cookie');
-        console.log('csrf = ', csrf);
+        await api.get('/sanctum/csrf-cookie');
 
         const postData = async () => {
             const response = await api.post("/api/login", payload);
@@ -17,7 +16,6 @@ export const login = (payload) => {
 
         try {
             const user = await postData();
-            console.log(user);
             await dispatch(authActions.login(user));
         } catch (error) {
             console.log(error);
@@ -30,8 +28,7 @@ export const login = (payload) => {
 
 export const register = (payload) => {
     return async dispatch => {
-        const csrf = await api.get('/sanctum/csrf-cookie');
-        console.log('csrf = ', csrf);
+        await api.get('/sanctum/csrf-cookie');
 
         const postData = async () => {
             const response = await api.post("/api/register", payload);
@@ -42,7 +39,6 @@ export const register = (payload) => {
 
         try {
             const user = await postData();
-            console.log(user);
             dispatch(authActions.register(user));
         } catch (error) {
             console.log(error);
@@ -53,7 +49,6 @@ export const register = (payload) => {
 
 export const logout = (token) => {
     return async dispatch => {
-        console.log(token);
         await api.get('/sanctum/csrf-cookie');
 
         const logout = async () => {
@@ -68,8 +63,7 @@ export const logout = (token) => {
         };
 
         try {
-            const message = await logout();
-            console.log('Logout message : ', message);
+            await logout();
             dispatch(authActions.logout());
             
         } catch (error) {

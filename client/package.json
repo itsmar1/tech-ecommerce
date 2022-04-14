@@ -20,6 +20,7 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "redux-persist": "^6.0.0",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
