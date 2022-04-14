@@ -15,7 +15,22 @@ const About = () => {
                             <img src={ABOUT_IMG_URL} alt="" />
                         </div>
                         <div>
-                            <h2 className='xs:text-[3rem] sm:text-[2rem] md:text-[2.5rem] font-bold capitalize'>Our Story</h2>
+                            <h2 className='text-4xl lg:text-6xl font-bold capitalize tracking-wider'>
+                                Our Story
+                                <svg
+                                    className="svg-underline stroke-[#ffb81c] relative z-10 w-1/2"
+                                    strokeLinejoin="round"
+                                    strokeLinecap="round"
+                                    strokeWidth={7}
+                                    viewBox="0 0 422 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path
+                                        d="M3 9C118.957 4.47226 364.497 -1.86658 419 9"
+                                    />
+                                </svg>
+                            </h2>
                             <p className='leading-10 text-gray-600 py-8 text-lg'>
                                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat
                                 accusantium sapiente tempora sed dolore esse deserunt eaque
