@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import { productsActions } from '../products-slice';
+import { uiActions } from '../ui-slice';
 import api from '../../utils/api';
 
 
@@ -26,6 +28,7 @@ export const getProducts = () => {
 
 export const getProductDetails = (id) => {
     return async dispatch => {
+        dispatch(uiActions.pDetailLoading());
         const fetchData = async () => {
             const response = await axios.get(`http://localhost:8000/api/products/${id}`);
 
@@ -36,6 +39,7 @@ export const getProductDetails = (id) => {
         try {
             const productDetails = await fetchData();
             dispatch(productsActions.setProductDetails(productDetails));
+            dispatch(uiActions.pDetailLoading());
         } catch (error) {
             console.log('failed to fetch product details');
         }

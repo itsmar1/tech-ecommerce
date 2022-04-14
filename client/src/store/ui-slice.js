@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    gridView: true
+    gridView: true,
+    productDetailLoading: false
 };
 
 const uiSlice = createSlice({
@@ -11,6 +12,9 @@ const uiSlice = createSlice({
     reducers: {
         toggleView(state) {
             state.gridView = !state.gridView;
+        },
+        pDetailLoading(state) {
+            state.productDetailLoading = !state.productDetailLoading;
         }
     }
 });

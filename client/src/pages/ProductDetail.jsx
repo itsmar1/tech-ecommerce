@@ -8,12 +8,14 @@ import PageHero from '../layout/PageHero';
 import AddToCart from '../components/productDetail/AddToCart';
 import { getProductDetails } from '../store/actions/products-actions';
 import { formatPrice } from '../utils/helpers';
+import TheSpinner from '../layout/TheSpinner';
 
 
 
 const ProductDetail = () => {
     const { productId } = useParams();
     const dispatch = useDispatch();
+    const loading = useSelector((state) => state.ui.productDetailLoading);
     
     useEffect(() => {
         dispatch(getProductDetails(productId));
@@ -40,6 +42,7 @@ const ProductDetail = () => {
                 <Link to='/products' className='uppercase bg-primary px-4 py-2 rounded text-white font-semibold shadow-lg'>
                     back to products
                 </Link>
+                {loading ? <TheSpinner /> :
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-16'>
                     <ProductImages images={images} />
                     <div>
@@ -63,6 +66,7 @@ const ProductDetail = () => {
                         <AddToCart product={product} />
                     </div>
                 </div>
+                }
             </div>
         </div>
     );
