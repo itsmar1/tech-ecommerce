@@ -5,7 +5,8 @@ const initialState = {
     gridView: true,
     productDetailLoading: false,
     productsLoading: false,
-    loginLoading: false
+    loginLoading: false,
+    addPrductLoading: false
 };
 
 const uiSlice = createSlice({
@@ -23,6 +24,9 @@ const uiSlice = createSlice({
         },
         loginLoading(state) {
             state.loginLoading = !state.loginLoading;
+        },
+        addPrductLoading(state) {
+            state.addPrductLoading = !state.addPrductLoading;
         }
     }
 });

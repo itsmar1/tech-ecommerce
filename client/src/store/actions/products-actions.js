@@ -52,9 +52,9 @@ export const getProductDetails = (id) => {
 
 export const addProduct = ({ product, token }) => {
     return async dispatch => {
+        dispatch(uiActions.addPrductLoading());
         await api.get('/sanctum/csrf-cookie');
         
-
         const postData = async () => {
             const response = await axios.post('http://localhost:8000/api/products', product, {
                     headers: {
@@ -72,6 +72,7 @@ export const addProduct = ({ product, token }) => {
             console.log('message : ', message);
             dispatch(getProducts());
             // dispatch(productsActions.addProduct(product));
+            dispatch(uiActions.addPrductLoading());
             
         } catch (error) {
             console.log(error);

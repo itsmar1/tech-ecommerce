@@ -22,7 +22,7 @@ const DashboardNavbar = () => {
                     <h3 className='font-semibold'>Administrator.</h3>
                 </div>
                 <div className='ml-auto'>
-                    <button className='px-4 py-2 bg-gray-400 rounded-md flex items-center' onClick={logoutUser}>
+                    <button className='px-3 py-2 font-semibold text-white bg-primary rounded-lg shadow-lg flex items-center' onClick={logoutUser}>
                         <span className='inline-flex mr-3 font-bold'><BiLogOutCircle /></span>
                         logout
                     </button>

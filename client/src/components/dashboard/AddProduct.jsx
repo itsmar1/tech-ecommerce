@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import swal from "sweetalert";
 // import Dropzone from "react-dropzone";
 // import { useDropzone } from 'react-dropzone';
 
@@ -8,10 +9,12 @@ import { FaDollarSign } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../store/actions/products-actions";
+import TheSpinner from "../../layout/TheSpinner";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+  const loading = useSelector((state) => state.ui.addPrductLoading);
   const [tnail, setTnail] = useState("");
   const [pImages, setPImages] = useState("");
 
@@ -30,16 +33,18 @@ const AddProduct = () => {
 
   };
 
+  const initialValues = {
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    brand: "",
+    shipping: false,
+    sku: "BlkjdfKj23jrdfkj1",
+  };
+
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      brand: "",
-      shipping: false,
-      sku: "BlkjdfKj23jrdfkj1",
-    },
+    initialValues,
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
       description: Yup.string().required("Required"),
@@ -47,7 +52,7 @@ const AddProduct = () => {
       category: Yup.string().required("Required"),
       brand: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData();
       formData.append('thumbnail', tnail);
 
@@ -68,8 +73,20 @@ const AddProduct = () => {
         product: formData,
         token
       };
-      console.log(payload);
-      dispatch(addProduct(payload));
+
+      try {
+        await dispatch(addProduct(payload));
+        formik.resetForm(initialValues);
+        swal({
+          title: "Product Created!",
+          text: `Product: ${values.name} CREATED!`,
+          icon: "success",
+          button: "OK!",
+        });
+        
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -279,6 +296,7 @@ const AddProduct = () => {
                 type="file"
                 name="thumbnail"
                 id="thumbnail"
+                accept="image/*"
                 // onChange={(event) => {
                 //   formik.setFieldValue("thumbnail", () => {
                 //     const fd = new FormData();
@@ -307,6 +325,7 @@ const AddProduct = () => {
                 type="file"
                 name="images[]"
                 id="images"
+                accept="image/*"
                 // onChange={(event) => {
                 //   // formik.setFieldValue("images", event.currentTarget.files)
                 //   formik.setFieldValue("images", () => {
@@ -318,6 +337,7 @@ const AddProduct = () => {
                 onChange={imagesHandler}
                 multiple
               />
+              <p className="text-xs">Upload 4 images *</p>
               {/* <div className="w-full h-auto bg-gray-500" {...getRootProps()} >
                 <input {...getInputProps()} />
                 {
@@ -345,12 +365,14 @@ const AddProduct = () => {
               )} */}
             </div>
             <hr />
+            {loading ? <TheSpinner /> : 
             <button
               type="submit"
               className="px-4 py-2 block mt-3 ml-auto text-primary border border-primary hover:text-white hover:bg-primary rounded-md"
             >
               Create Product
             </button>
+            }
           </form>
         </div>
       </div>

@@ -19,8 +19,10 @@ const Products = () => {
                         <Filters filters={filters} />
                     </div>
                     <div className='mb-[20rem] md:col-span-2 lg:col-span-4'>
-                        <Sort />
-                        <ProductsList />
+                        <div className='w-full flex flex-col'>
+                            <Sort />
+                            <ProductsList />
+                        </div>
                     </div>
                 </div>
             </div>
