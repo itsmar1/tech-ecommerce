@@ -86,11 +86,8 @@ export const addProduct = ({ product, token }) => {
 
 export const updateProduct = ({ product, id, token }) => {
     return async dispatch => {
-
+        dispatch(uiActions.updateProductLoading());
         await api.get('/sanctum/csrf-cookie');
-        console.log('product : ', product);
-        console.log('id : ', id);
-        console.log('token : ', token);
 
         const putData = async () => {
             const response = await api.put(`/api/products/${id}`, product, {
@@ -106,6 +103,7 @@ export const updateProduct = ({ product, id, token }) => {
             const product = await putData();
             console.log(product);
             dispatch(getProducts());
+            dispatch(uiActions.updateProductLoading());
             
         } catch (error) {
             console.log(error);

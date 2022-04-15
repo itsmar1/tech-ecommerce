@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ProductItem from './ProductItem';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { FiEdit } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 
 
@@ -12,7 +12,7 @@ const UpdateProducts = () => {
         <div>
             <div className="flex items-center mx-4 my-8 p-8 bg-white shadow-2xl drop-shadow-md">
                 <span className="text-4xl text-primary mr-6">
-                    <AiOutlineUnorderedList />
+                    <FiEdit />
                 </span>
                 <h2 className="uppercase text-4xl tracking-widest font-semibold">
                     Update Products

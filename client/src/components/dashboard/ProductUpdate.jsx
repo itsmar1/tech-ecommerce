@@ -6,6 +6,8 @@ import { FaDollarSign } from "react-icons/fa";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "../../store/actions/products-actions";
+import swal from "sweetalert";
+import TheSpinner from '../../layout/TheSpinner';
 
 
 const ProductUpdate = () => {
@@ -14,6 +16,7 @@ const ProductUpdate = () => {
   const location = useLocation();
   const { product } = location.state;
   const token = useSelector((state) => state.auth.token);
+  const loading = useSelector((state) => state.ui.updateProductLoading);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -35,7 +38,18 @@ const ProductUpdate = () => {
     }),
     onSubmit: async (values) => {
       
-      await dispatch(updateProduct({ product: values, id: productId, token }));
+      try {
+        await dispatch(updateProduct({ product: values, id: productId, token }));
+        swal({
+          title: "Product Updated!",
+          text: `Product: ${values.name} UPDATED!`,
+          icon: "success",
+          button: "OK!",
+        });
+        
+      } catch (error) {
+        
+      }
       
     },
   });
@@ -230,12 +244,14 @@ const ProductUpdate = () => {
               </label>
             </div>
             <hr />
+            {loading ? <TheSpinner /> : 
             <button
               type="submit"
               className="px-4 py-2 block my-12 ml-auto font-bold uppercase text-secondary-100 border border-secondary-100 hover:text-white hover:bg-secondary-100 rounded-md"
             >
               Update Product
             </button>
+            }
           </form>
         </div>
       </div>

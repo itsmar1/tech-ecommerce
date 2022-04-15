@@ -6,7 +6,8 @@ const initialState = {
     productDetailLoading: false,
     productsLoading: false,
     loginLoading: false,
-    addPrductLoading: false
+    addPrductLoading: false,
+    updateProductLoading: false
 };
 
 const uiSlice = createSlice({
@@ -27,6 +28,9 @@ const uiSlice = createSlice({
         },
         addPrductLoading(state) {
             state.addPrductLoading = !state.addPrductLoading;
+        },
+        updateProductLoading(state) {
+            state.updateProductLoading = !state.updateProductLoading;
         }
     }
 });

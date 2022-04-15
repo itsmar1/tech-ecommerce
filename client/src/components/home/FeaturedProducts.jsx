@@ -7,7 +7,7 @@ import { formatPrice } from '../../utils/helpers';
 
 
 const FeaturedProducts = () => {
-    const products = useSelector((state) => state.products.filteredProducts);
+    const products = useSelector((state) => state.products.products);
 
 
     return (
