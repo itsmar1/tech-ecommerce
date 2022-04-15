@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     gridView: true,
     productDetailLoading: false,
-    productsLoading: false
+    productsLoading: false,
+    loginLoading: false
 };
 
 const uiSlice = createSlice({
@@ -19,6 +20,9 @@ const uiSlice = createSlice({
         },
         productsLoading(state) {
             state.productsLoading = !state.productsLoading;
+        },
+        loginLoading(state) {
+            state.loginLoading = !state.loginLoading;
         }
     }
 });

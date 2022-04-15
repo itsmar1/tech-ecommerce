@@ -1,10 +1,12 @@
 // import axios from "axios";
 import api from "../../utils/api";
 import { authActions } from '../auth-slice';
+import { uiActions } from "../ui-slice";
 
 
 export const login = (payload) => {
     return async dispatch => {
+        dispatch(uiActions.loginLoading());
         await api.get('/sanctum/csrf-cookie');
 
         const postData = async () => {
@@ -17,6 +19,7 @@ export const login = (payload) => {
         try {
             const user = await postData();
             await dispatch(authActions.login(user));
+            dispatch(uiActions.loginLoading());
         } catch (error) {
             console.log(error);
         }

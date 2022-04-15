@@ -6,14 +6,16 @@ import { MdEmail } from "react-icons/md";
 import { FiLogIn } from 'react-icons/fi'
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/actions/auth-actions';
+import TheSpinner from "../layout/TheSpinner";
 
 
 
 
 const Login = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.ui.loginLoading);
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +44,7 @@ const Login = () => {
           <span className="text-primary">tech</span>
           <span className="text-secondary-200">shop</span>
         </h2>
+        {loading ? <TheSpinner /> : 
         <form onSubmit={formik.handleSubmit}>
           <div className="flex flex-col space-y-1 mb-4">
             <label htmlFor="email" className="font-semibold tracking-wider">
@@ -100,6 +103,7 @@ const Login = () => {
               Login
             </button>
         </form>
+        }
         <p className="text-center mt-6">Not registered? <Link to='/register' className="text-primary">Create an account</Link> </p>
       </div>
     </div>
