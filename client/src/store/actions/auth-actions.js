@@ -31,6 +31,7 @@ export const login = (payload) => {
 
 export const register = (payload) => {
     return async dispatch => {
+        dispatch(uiActions.registerLoading())
         await api.get('/sanctum/csrf-cookie');
 
         const postData = async () => {
@@ -42,7 +43,8 @@ export const register = (payload) => {
 
         try {
             const user = await postData();
-            dispatch(authActions.register(user));
+            await dispatch(authActions.register(user));
+            dispatch(uiActions.registerLoading());
         } catch (error) {
             console.log(error);
         }

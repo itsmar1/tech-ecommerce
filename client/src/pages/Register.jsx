@@ -7,11 +7,13 @@ import { FiLogIn } from "react-icons/fi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from '../store/actions/auth-actions';
+import TheSpinner from "../layout/TheSpinner";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.ui.registerLoading);
 
   const formik = useFormik({
     initialValues: {
@@ -46,6 +48,7 @@ const Register = () => {
           <span className="text-primary">tech</span>
           <span className="text-secondary-200">shop</span>
         </h2>
+        {loading ? <TheSpinner /> : 
         <form onSubmit={formik.handleSubmit}>
           <div className="flex flex-col space-y-1 mb-4">
             <label htmlFor="name" className="font-semibold tracking-wider">
@@ -160,6 +163,7 @@ const Register = () => {
             Sign up
           </button>
         </form>
+        }
         <p className="text-center mt-6">
           Already have an account?{" "}
           <Link to="/login" className="text-primary">
