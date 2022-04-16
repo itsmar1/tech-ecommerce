@@ -1,10 +1,27 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 import PageHero from '../layout/PageHero';
 import { ABOUT_IMG_URL } from '../utils/constants';
 
 
 const About = () => {
+
+    const underlineAnimate = {
+        hidden: {
+          opacity: 0,
+          pathLength: 0,
+        },
+        visible: {
+          opacity: 1,
+          pathLength: 1,
+          transition: {
+            delay: 1,
+            duration: .8,
+          },
+        },
+    };
+
     return (
         <main>
             <PageHero title="about" />
@@ -15,7 +32,11 @@ const About = () => {
                             <img src={ABOUT_IMG_URL} alt="" />
                         </div>
                         <div>
-                            <h2 className='text-4xl lg:text-6xl font-bold capitalize tracking-wider'>
+                            <motion.h2 className='text-4xl lg:text-6xl font-bold capitalize tracking-wider'
+                                initial={{ opacity: 0, y: 60 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: .5 }}
+                            >
                                 Our Story
                                 <svg
                                     className="svg-underline stroke-[#ffb81c] relative z-10 w-1/2"
@@ -26,12 +47,19 @@ const About = () => {
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                     >
-                                    <path
+                                    <motion.path
                                         d="M3 9C118.957 4.47226 364.497 -1.86658 419 9"
+                                        variants={underlineAnimate}
+                                        initial="hidden"
+                                        animate="visible"
                                     />
                                 </svg>
-                            </h2>
-                            <p className='leading-10 text-gray-600 py-8 text-lg'>
+                            </motion.h2>
+                            <motion.p className='leading-10 text-gray-600 py-8 text-lg'
+                                initial={{ opacity: 0, y: 60 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: .5, duration: .8 }}
+                            >
                                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat
                                 accusantium sapiente tempora sed dolore esse deserunt eaque
                                 excepturi, delectus error accusamus vel eligendi, omnis beatae.
@@ -42,7 +70,7 @@ const About = () => {
                                 ex, eaque perspiciatis nisi, eum totam velit saepe sed quos
                                 similique amet. Ex, voluptate accusamus nesciunt totam vitae esse
                                 iste.
-                            </p>
+                            </motion.p>
                         </div>
                     </div>
                 </div>
