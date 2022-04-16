@@ -5,25 +5,46 @@ import PageHero from '../layout/PageHero';
 import { ABOUT_IMG_URL } from '../utils/constants';
 
 
+const containerVariants = {
+    hidden: {
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: { duration: .3 }
+    },
+    exit: {
+      x: '-100vw',
+      transition: { ease: 'easeInOut' }
+    }
+  };
+
+  const underlineAnimate = {
+    hidden: {
+      opacity: 0,
+      pathLength: 0,
+    },
+    visible: {
+      opacity: 1,
+      pathLength: 1,
+      transition: {
+        delay: 1,
+        duration: .8,
+      },
+    },
+};
+
+
 const About = () => {
 
-    const underlineAnimate = {
-        hidden: {
-          opacity: 0,
-          pathLength: 0,
-        },
-        visible: {
-          opacity: 1,
-          pathLength: 1,
-          transition: {
-            delay: 1,
-            duration: .8,
-          },
-        },
-    };
 
     return (
-        <main>
+        <motion.main
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
             <PageHero title="about" />
             <div className='w-full py-32'>
                 <div className='w-[85vw] flex mx-auto'>
@@ -75,7 +96,7 @@ const About = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </motion.main>
     );
 };
 

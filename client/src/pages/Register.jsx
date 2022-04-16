@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { motion } from 'framer-motion';
 
 import { FaUserAlt } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
@@ -10,6 +11,21 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from '../store/actions/auth-actions';
 import TheSpinner from "../layout/TheSpinner";
+
+
+const containerVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: .3 }
+  },
+  exit: {
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+};
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -42,7 +58,12 @@ const Register = () => {
   });
 
   return (
-    <div className="w-[80%] mx-auto mt-40 mb-52">
+    <motion.div className="w-[80%] mx-auto mt-40 mb-52"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <div className="w-[320px] sm:w-[400px] rounded shadow-xl border-2 border-solid px-4 sm:px-8 py-20 mx-auto">
         <h2 className="text-3xl uppercase tracking-wider font-bold text-center mb-12 select-none">
           <span className="text-primary">tech</span>
@@ -171,7 +192,7 @@ const Register = () => {
           </Link>{" "}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

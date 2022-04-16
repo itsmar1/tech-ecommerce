@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "./store/actions/products-actions";
+import { AnimatePresence } from "framer-motion";
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -27,8 +28,11 @@ import HomeRedirect from "./components/auth/HomeRedirect";
 
 
 
+
+
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   // const products = useSelector((state) => state.products.products);
 
@@ -40,37 +44,43 @@ const App = () => {
   return (
     <>
       {!isAdmin && <MainNavigation />}
-      <Routes>
-        <Route element={<HomeRedirect />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:productId" element={<ProductDetail />} />
-        </Route>
+      <AnimatePresence exitBeforeEnter >
 
-        <Route element={<LoginRedirect />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
+        <Routes location={location} key={location.pathname}>
 
-        <Route element={<RegisterRedirect />}>
-          <Route path="/register" element={<Register />} />
-        </Route>
+          <Route element={<HomeRedirect />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:productId" element={<ProductDetail />} />
+          </Route>
 
-        <Route element={<DashboardRedirect />}>
-          <Route path="admin/dashboard" element={<Dashboard />}>
-            <Route path="products" element={<TheProducts />} />
-            <Route path="addproduct" element={<AddProduct />} />
-            <Route path="updateproducts">
-              <Route index element={<UpdateProducts />} />
-              <Route path=":productId" element={<ProductUpdate />} />
+          <Route element={<LoginRedirect />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+
+          <Route element={<RegisterRedirect />}>
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          <Route element={<DashboardRedirect />}>
+            <Route path="admin/dashboard" element={<Dashboard />}>
+              <Route path="products" element={<TheProducts />} />
+              <Route path="addproduct" element={<AddProduct />} />
+              <Route path="updateproducts">
+                <Route index element={<UpdateProducts />} />
+                <Route path=":productId" element={<ProductUpdate />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+
+      </AnimatePresence>
       {!isAdmin && <Footer />}
     </>
   );

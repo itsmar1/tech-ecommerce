@@ -100,8 +100,7 @@ export const updateProduct = ({ product, id, token }) => {
         };
 
         try {
-            const product = await putData();
-            console.log(product);
+            await putData();
             dispatch(getProducts());
             dispatch(uiActions.updateProductLoading());
             

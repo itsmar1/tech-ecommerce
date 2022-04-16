@@ -102,7 +102,6 @@ const productsSlice = createSlice({
                 price: state.maxPrice,
                 shipping: false
             }
-            console.log(state.filters);
         },
         setProductDetails: (state, action) => {
             state.productDetails = action.payload;

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import ProductImages from '../components/productDetail/ProductImages';
 import Stars from '../components/productDetail/Stars';
@@ -9,6 +10,21 @@ import AddToCart from '../components/productDetail/AddToCart';
 import { getProductDetails } from '../store/actions/products-actions';
 import { formatPrice } from '../utils/helpers';
 import TheSpinner from '../layout/TheSpinner';
+
+
+const containerVariants = {
+    hidden: {
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: { duration: .3 }
+    },
+    exit: {
+      x: '-100vw',
+      transition: { ease: 'easeInOut' }
+    }
+}
 
 
 
@@ -36,7 +52,12 @@ const ProductDetail = () => {
     } = product;
 
     return (
-        <div className='mb-48'>
+        <motion.div className='mb-48'
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
             <PageHero title={name} product />
             <div className='mt-16 space-y-16 w-[80vw] mx-auto'>
                 <Link to='/products' className='uppercase bg-primary px-4 py-2 rounded text-white font-semibold shadow-lg'>
@@ -70,7 +91,7 @@ const ProductDetail = () => {
                 </div>
                 }
             </div>
-        </div>
+        </motion.div>
     );
 };
 

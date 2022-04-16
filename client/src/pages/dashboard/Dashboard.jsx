@@ -9,8 +9,7 @@ import DashboardContent from '../../components/dashboard/DashboardContent';
 
 const Dashboard = () => {
     const { pathname } = useLocation();
-
-    console.log(pathname);
+    
     return (
         <div className='w-full flex'>
             <div className='w-[300px] h-screen top-0 left-0 sticky bg-gradient-to-tr from-green-200 to-primary'>
