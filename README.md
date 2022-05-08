@@ -2,6 +2,11 @@
 
 A full-stack CRUD Laravel and ReactJs E-Commerce platform with a secure authentication system using Laravel Sanctum, with the admin dashboard.
 
+![tech_ecommerce](https://user-images.githubusercontent.com/58397095/167276083-2b5504d1-3c2a-426c-a2c9-459573e10606.png)
+
+![adminDashboard](https://user-images.githubusercontent.com/58397095/167276092-3fc8f602-aa80-4d31-977f-956e5bb0bf0c.PNG)
+
+
 ## Getting Started
 
 1. Clone the repo: `git clone https://github.com/itsmar1/tech-ecommerce.git`
@@ -13,6 +18,7 @@ A full-stack CRUD Laravel and ReactJs E-Commerce platform with a secure authenti
 6. Open up two command prompts. In one, run `php artisan serve` to start your backend server, in the other prompt run `npm start` to start the front end.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 
 ### Prerequisites
 
@@ -34,12 +40,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Live Demo
 * Click [HERE](https://github.com/itsmar1) for demo
-* Admin: `admin@admin.com` / access the admin dashboard
-* Client: `client@client.com`
+* Admin => email: `admin@techshop.com` | password: admin
+* Client => email: `client@techshop.com` | password: client
+
 
 ## Author
 
 [**Marwan Ahal**](https://github.com/itsmar1)
+
 
 ## License
 
