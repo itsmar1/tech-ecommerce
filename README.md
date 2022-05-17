@@ -29,8 +29,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Tech Stack
 
-* [Laravel](https://reactjs.org/) - The backend php framework used
-* [React](https://maven.apache.org/) - The frontend framework used
+* [Laravel](https://laravel.com/docs/8.x/) - The backend php framework used
+* [React](https://reactjs.org/) - The frontend framework used
 * [Redux](https://react-redux.js.org/) - State management
 * [Laravel Sanctum](https://laravel.com/docs/8.x/sanctum) - Authentication system
 * [Tailwind](https://tailwindcss.com/) - CSS framework
@@ -39,14 +39,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Live Demo
-* Click [HERE](https://github.com/itsmar1) for demo
+* Click [HERE](https://techshopecom.herokuapp.com) for demo
 * Admin => email: `admin@techshop.com` | password: admin
 * Client => email: `client@techshop.com` | password: client
 
 
 ## Author
 
-[**Marwan Ahal**](https://github.com/itsmar1)
+[**Marwan Ahal**](https://www.soymarwan.com/)
 
 
 ## License
